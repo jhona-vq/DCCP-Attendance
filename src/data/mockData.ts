@@ -24,6 +24,7 @@ export const mockCourses: Course[] = [
     name: 'Web Development',
     facultyId: 'f1',
     facultyName: 'Dr. Maria Santos',
+    yearAndSection: 'BSIT 3-1',
     schedule: [
       {
         day: 'Monday',
@@ -45,6 +46,7 @@ export const mockCourses: Course[] = [
     name: 'Database Management',
     facultyId: 'f2',
     facultyName: 'Prof. Robert Garcia',
+    yearAndSection: 'BSIT 3-1',
     schedule: [
       {
         day: 'Tuesday',
@@ -66,6 +68,7 @@ export const mockCourses: Course[] = [
     name: 'Mobile App Development',
     facultyId: 'f3',
     facultyName: 'Engr. Paulo Cruz',
+    yearAndSection: 'BSIT 3-2',
     schedule: [
       {
         day: 'Monday',
@@ -87,6 +90,7 @@ export const mockCourses: Course[] = [
     name: 'Network Security',
     facultyId: 'f4',
     facultyName: 'Dr. James Rivera',
+    yearAndSection: 'BSIT 4-1',
     schedule: [
       {
         day: 'Wednesday',
@@ -102,6 +106,7 @@ export const mockCourses: Course[] = [
     name: 'Systems Analysis and Design',
     facultyId: 'f5',
     facultyName: 'Prof. Anna Lim',
+    yearAndSection: 'BSIT 4-2',
     schedule: [
       {
         day: 'Thursday',

@@ -15,6 +15,7 @@ export interface Course {
   name: string;
   facultyId: string;
   facultyName: string;
+  yearAndSection: 'BSIT 1-1' | 'BSIT 1-2' | 'BSIT 2-1' | 'BSIT 2-2' | 'BSIT 3-1' | 'BSIT 3-2' | 'BSIT 4-1' | 'BSIT 4-2';
   schedule: ClassSchedule[];
 }
 
