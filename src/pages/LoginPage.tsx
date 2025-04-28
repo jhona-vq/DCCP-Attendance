@@ -20,37 +20,17 @@ const LoginPage: React.FC = () => {
       const success = await login(email, password);
       if (success) {
         navigate('/');
+      } else {
+        // Handle login failure (e.g., show an error message)
+        alert('Login failed. Please check your credentials.');
       }
+    } catch (error) {
+      // Handle any errors that occur during the login process
+      console.error('Login error:', error);
+      alert('An error occurred during login. Please try again later.');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleDemoLogin = async (role: string) => {
-    let demoEmail = '';
-    
-    switch (role) {
-      case 'student':
-        demoEmail = 'jhonav@dccp.edu.ph';
-        break;
-      case 'faculty':
-        demoEmail = 'maria.santos@dccp.edu.ph';
-        break;
-      case 'admin':
-        demoEmail = 'admin@dccp.edu.ph';
-        break;
-    }
-    
-    setEmail(demoEmail);
-    setPassword('12345678');
-    
-    setTimeout(() => {
-      login(demoEmail, '12345678').then(success => {
-        if (success) {
-          navigate('/');
-        }
-      });
-    }, 500);
   };
 
   return (
@@ -118,32 +98,6 @@ const LoginPage: React.FC = () => {
                   Sign up
                 </Link>
               </p>
-              <div className="text-center text-sm text-muted-foreground">
-                <span>Quick demo login as: </span>
-                <button 
-                  type="button" 
-                  className="underline text-dccp-secondary hover:text-dccp-primary ml-1" 
-                  onClick={() => handleDemoLogin('student')}
-                >
-                  Student
-                </button>
-                <span> | </span>
-                <button 
-                  type="button" 
-                  className="underline text-dccp-secondary hover:text-dccp-primary" 
-                  onClick={() => handleDemoLogin('faculty')}
-                >
-                  Faculty
-                </button>
-                <span> | </span>
-                <button 
-                  type="button" 
-                  className="underline text-dccp-secondary hover:text-dccp-primary" 
-                  onClick={() => handleDemoLogin('admin')}
-                >
-                  Admin
-                </button>
-              </div>
             </CardFooter>
           </form>
         </Card>
