@@ -9,116 +9,164 @@ import {
 
 export const currentUser: User = {
   id: 'u1',
-  name: 'John Doe',
-  email: 'john.doe@dccp.edu.ph',
+  name: 'Jhona Villanueva',
+  email: 'jhonav@dccp.edu.ph',
   role: 'student',
-  studentId: 'BSIT-2022-1234',
-  department: 'Information Technology',
+  studentId: '205841',
+  department: 'Bachelor of Science in Information Technology',
   avatar: '/placeholder.svg',
 };
 
 export const mockCourses: Course[] = [
   {
     id: 'c1',
-    code: 'IT 314',
-    name: 'Web Development',
+    code: 'ITW 322',
+    name: 'Linux Operating System',
     facultyId: 'f1',
-    facultyName: 'Dr. Maria Santos',
-    yearAndSection: 'BSIT 3-1',
+    facultyName: 'Kray Ann Kitma',
+    yearAndSection: 'BSIT 3-2',
     schedule: [
       {
-        day: 'Monday',
-        startTime: '08:00',
-        endTime: '10:00',
-        room: 'Room 301'
+        day: 'Wednesday',
+        startTime: '1:00',
+        endTime: '2:00',
+        room: 'Room 302'
       },
       {
-        day: 'Wednesday',
-        startTime: '08:00',
-        endTime: '10:00',
-        room: 'Computer Lab 2'
+        day: 'Friday',
+        startTime: '1:00',
+        endTime: '2:00',
+        room: 'Room 302'
       }
     ]
   },
   {
     id: 'c2',
-    code: 'IT 315',
-    name: 'Database Management',
+    code: 'ITW 328',
+    name: 'Professional Ethics in IT and Comp. Issues',
     facultyId: 'f2',
-    facultyName: 'Prof. Robert Garcia',
-    yearAndSection: 'BSIT 3-1',
+    facultyName: '',
+    yearAndSection: 'BSIT 3-2',
     schedule: [
       {
-        day: 'Tuesday',
-        startTime: '13:00',
-        endTime: '15:00',
-        room: 'Room 305'
-      },
-      {
-        day: 'Thursday',
-        startTime: '13:00',
-        endTime: '15:00',
-        room: 'Computer Lab 1'
+       day: 'Tuesday',
+        startTime: '11:00',
+        endTime: '12:00',
+        room: 'Room 501'
       }
     ]
   },
   {
     id: 'c3',
-    code: 'IT 316',
-    name: 'Mobile App Development',
+    code: 'ITW 321',
+    name: 'System Analysis And Design',
     facultyId: 'f3',
-    facultyName: 'Engr. Paulo Cruz',
+    facultyName: 'Dr.Marvin Arenas',
     yearAndSection: 'BSIT 3-2',
     schedule: [
       {
-        day: 'Monday',
-        startTime: '15:00',
-        endTime: '17:00',
-        room: 'Computer Lab 3'
+       day: 'Tuesday',
+        startTime: '1:00',
+        endTime: '2:00',
+        room: 'Room 302'
       },
       {
-        day: 'Friday',
-        startTime: '14:00',
-        endTime: '17:00',
-        room: 'Computer Lab 3'
+        day: 'Thursday',
+        startTime: '1:00',
+        endTime: '2:00',
+        room: 'Room 302'
       }
     ]
   },
   {
     id: 'c4',
-    code: 'IT 317',
-    name: 'Network Security',
+    code: 'ITW 327',
+    name: 'Project Management',
     facultyId: 'f4',
-    facultyName: 'Dr. James Rivera',
-    yearAndSection: 'BSIT 4-1',
+    facultyName: 'Kray Ann Kitma',
+    yearAndSection: 'BSIT 3-2',
     schedule: [
       {
-        day: 'Wednesday',
-        startTime: '13:00',
-        endTime: '16:00',
-        room: 'Network Lab'
+        day: 'Tuesday',
+        startTime: '2:30',
+        endTime: '4:00',
+        room: 'Room 302'
+      },
+      {
+        day: 'Thursday',
+        startTime: '2:30',
+        endTime: '4:00',
+        room: 'Room 302'
       }
     ]
   },
   {
     id: 'c5',
-    code: 'IT 318',
-    name: 'Systems Analysis and Design',
+    code: 'ITW 323',
+    name: 'Computer Programming 5 (Web Design & Development)',
     facultyId: 'f5',
-    facultyName: 'Prof. Anna Lim',
-    yearAndSection: 'BSIT 4-2',
+    facultyName: 'Kray Ann Kitma',
+    yearAndSection: 'BSIT 3-2',
     schedule: [
       {
-        day: 'Thursday',
-        startTime: '08:00',
-        endTime: '10:00',
-        room: 'Room 304'
+        day: 'Tuesday',
+        startTime: '4:00',
+        endTime: '5:30',
+        room: 'Room 302'
       },
       {
-        day: 'Friday',
-        startTime: '10:00',
-        endTime: '12:00',
-        room: 'Room 304'
+        day: 'Thursday',
+        startTime: '4:00',
+        endTime: '5:30',
+        room: 'Room 302'
+      }
+    ]
+  },
+  {
+    id: 'c6',
+    code: 'ITW 325',
+    name: 'Fundamentals of Business Analytics',
+    facultyId: 'f4',
+    facultyName: '',
+    yearAndSection: 'BSIT 3-2',
+    schedule: [
+      {
+        day: 'Saturday',
+        startTime: '8:00',
+        endTime: '11:00',
+        room: 'Room 402'
+      }
+    ]
+  },
+  {
+    id: 'c7',
+    code: 'ITW 324',
+    name: 'System Administration and Maintainance',
+    facultyId: 'f4',
+    facultyName: 'Sir. Jodel Urbano',
+    yearAndSection: 'BSIT 3-2',
+    schedule: [
+      {
+        day: 'Saturday',
+        startTime: '11:00',
+        endTime: '2:00',
+        room: 'Room 302'
+      }
+    ]
+  },
+  {
+    id: 'c8',
+    code: 'ITW 326',
+    name: 'Information Assurance and Security',
+    facultyId: 'f4',
+    facultyName: 'Sir. Jodel Urbano',
+    yearAndSection: 'BSIT 3-2',
+    schedule: [
+      {
+        day: 'Saturday',
+        startTime: '2:00',
+        endTime: '5:00',
+        room: 'Room 402'
       }
     ]
   }
@@ -158,18 +206,21 @@ const generateRandomAttendance = (courseId: string, courseName: string): Attenda
 };
 
 export const mockAttendanceRecords: AttendanceRecord[] = [
-  ...generateRandomAttendance('c1', 'Web Development'),
-  ...generateRandomAttendance('c2', 'Database Management'),
-  ...generateRandomAttendance('c3', 'Mobile App Development'),
-  ...generateRandomAttendance('c4', 'Network Security'),
-  ...generateRandomAttendance('c5', 'Systems Analysis and Design')
+  ...generateRandomAttendance('c1', 'Linux Operating System'),
+  ...generateRandomAttendance('c2', 'Professional Ethics in IT and Comp. Issues'),
+  ...generateRandomAttendance('c3', 'System Analysis And Design'),
+  ...generateRandomAttendance('c4', 'Project Management'),
+  ...generateRandomAttendance('c5', 'Computer Programming 5 (Web Design & Development'),
+  ...generateRandomAttendance('c6', 'Fundamentals of Business Analytics'),
+  ...generateRandomAttendance('c7', 'System Administration and Maintainance'),
+  ...generateRandomAttendance('c8', 'Information Assurance and Security')
 ];
 
 export const mockNotifications: NotificationItem[] = [
   {
     id: 'n1',
     title: 'Class Cancelled',
-    message: 'IT 314 Web Development class for tomorrow has been cancelled.',
+    message: 'ITW 327 Project Management class for tomorrow has been cancelled.',
     timestamp: '2025-04-27T14:30:00',
     read: false,
     type: 'warning'
@@ -185,7 +236,7 @@ export const mockNotifications: NotificationItem[] = [
   {
     id: 'n3',
     title: 'New Assignment',
-    message: 'New assignment posted for IT 316 Mobile App Development.',
+    message: 'New assignment posted for ITw 322 Linux Operating System.',
     timestamp: '2025-04-25T16:45:00',
     read: true,
     type: 'info'
@@ -193,7 +244,7 @@ export const mockNotifications: NotificationItem[] = [
   {
     id: 'n4',
     title: 'Perfect Attendance',
-    message: 'Congratulations! You have perfect attendance for IT 317 Network Security this month.',
+    message: 'Congratulations! You have perfect attendance for ITW 321 System Analysis And Design this month.',
     timestamp: '2025-04-24T09:00:00',
     read: true,
     type: 'success'
