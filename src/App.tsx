@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from "@/context/AuthContext";
 
 import Layout from "@/components/Layout";
 import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
 import DashboardPage from "@/pages/DashboardPage";
 import SchedulePage from "@/pages/SchedulePage";
 import AttendancePage from "@/pages/AttendancePage";
@@ -39,6 +40,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <LoginPage />} />
+      <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <RegisterPage />} />
       
       <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
         <Route index element={<DashboardPage />} />

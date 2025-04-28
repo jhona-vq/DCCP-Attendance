@@ -1,13 +1,18 @@
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { UserPlus } from 'lucide-react';
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [studentId, setStudentId] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -17,6 +22,8 @@ const LoginPage: React.FC = () => {
     setIsLoading(true);
     
     try {
+      // For now, we'll just use the login function since we don't have a proper backend
+      // In a real app, you would call a registration API here
       const success = await login(email, password);
       if (success) {
         navigate('/');
@@ -24,33 +31,6 @@ const LoginPage: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleDemoLogin = async (role: string) => {
-    let demoEmail = '';
-    
-    switch (role) {
-      case 'student':
-        demoEmail = 'john.doe@dccp.edu.ph';
-        break;
-      case 'faculty':
-        demoEmail = 'maria.santos@dccp.edu.ph';
-        break;
-      case 'admin':
-        demoEmail = 'admin@dccp.edu.ph';
-        break;
-    }
-    
-    setEmail(demoEmail);
-    setPassword('12345678');
-    
-    setTimeout(() => {
-      login(demoEmail, '12345678').then(success => {
-        if (success) {
-          navigate('/');
-        }
-      });
-    }, 500);
   };
 
   return (
@@ -61,39 +41,58 @@ const LoginPage: React.FC = () => {
             <span className="text-white text-2xl font-bold">DC</span>
           </div>
           <h2 className="text-2xl font-bold tracking-tight text-dccp-dark">
-            DCCP Baguio Attendance System
+            Create Your Account
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            Sign in to access your attendance record
+            Join DCCP Baguio Attendance System
           </p>
         </div>
         
         <Card>
           <CardHeader>
-            <CardTitle>Sign In</CardTitle>
+            <CardTitle>Sign Up</CardTitle>
             <CardDescription>
-              Enter your credentials to access your account
+              Enter your details to create an account
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email
-                </label>
+                <Label htmlFor="name">Full Name</Label>
+                <Input
+                  id="name"
+                  placeholder="Juan Dela Cruz"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="studentId">Student ID</Label>
+                <Input
+                  id="studentId"
+                  placeholder="BSIT-2024-xxxx"
+                  value={studentId}
+                  onChange={(e) => setStudentId(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="your.email@dccp.edu.ph"
+                  placeholder="juan.delacruz@dccp.edu.ph"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
               </div>
+
               <div className="space-y-2">
-                <label htmlFor="password" className="text-sm font-medium">
-                  Password
-                </label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
@@ -110,40 +109,15 @@ const LoginPage: React.FC = () => {
                 className="w-full bg-dccp-primary hover:bg-dccp-secondary"
                 disabled={isLoading}
               >
-                {isLoading ? 'Signing in...' : 'Sign In'}
+                <UserPlus className="mr-2" />
+                {isLoading ? 'Creating Account...' : 'Create Account'}
               </Button>
               <p className="text-sm text-center text-muted-foreground">
-                Don't have an account?{' '}
-                <Link to="/register" className="text-dccp-primary hover:underline">
-                  Sign up
+                Already have an account?{' '}
+                <Link to="/login" className="text-dccp-primary hover:underline">
+                  Sign in
                 </Link>
               </p>
-              <div className="text-center text-sm text-muted-foreground">
-                <span>Quick demo login as: </span>
-                <button 
-                  type="button" 
-                  className="underline text-dccp-secondary hover:text-dccp-primary ml-1" 
-                  onClick={() => handleDemoLogin('student')}
-                >
-                  Student
-                </button>
-                <span> | </span>
-                <button 
-                  type="button" 
-                  className="underline text-dccp-secondary hover:text-dccp-primary" 
-                  onClick={() => handleDemoLogin('faculty')}
-                >
-                  Faculty
-                </button>
-                <span> | </span>
-                <button 
-                  type="button" 
-                  className="underline text-dccp-secondary hover:text-dccp-primary" 
-                  onClick={() => handleDemoLogin('admin')}
-                >
-                  Admin
-                </button>
-              </div>
             </CardFooter>
           </form>
         </Card>
@@ -156,4 +130,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;
