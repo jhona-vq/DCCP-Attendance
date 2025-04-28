@@ -31,7 +31,7 @@ const LoginPage: React.FC = () => {
     
     switch (role) {
       case 'student':
-        demoEmail = 'john.doe@dccp.edu.ph';
+        demoEmail = 'jhonav@dccp.edu.ph';
         break;
       case 'faculty':
         demoEmail = 'maria.santos@dccp.edu.ph';
