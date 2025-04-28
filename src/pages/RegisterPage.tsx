@@ -23,7 +23,7 @@ const RegisterPage: React.FC = () => {
   const [program, setProgram] = useState<Program>('BSIT');
   const [yearLevel, setYearLevel] = useState<YearLevel>('1st Year');
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { register, login } = useAuth(); // Assuming you have a register function in your AuthContext
   const navigate = useNavigate();
 
   const programs: Program[] = ['BSIT', 'BSHM', 'BSBA', 'DHRT'];
@@ -34,10 +34,18 @@ const RegisterPage: React.FC = () => {
     setIsLoading(true);
     
     try {
-      const success = await login(email, password);
-      if (success) {
-        navigate('/');
+      // Call the register function from AuthContext
+      const registrationSuccess = await register({ name, email, password, studentId, program, yearLevel });
+      if (registrationSuccess) {
+        // Automatically log the user in after successful registration
+        const loginSuccess = await login(email, password);
+        if (loginSuccess) {
+          navigate('/');
+        }
       }
+    } catch (error) {
+      console.error("Registration failed:", error);
+      // Handle error (e.g., show a notification)
     } finally {
       setIsLoading(false);
     }
@@ -90,86 +98,4 @@ const RegisterPage: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="juan.delacruz@dccp.edu.ph"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="program">Program</Label>
-                <Select value={program} onValueChange={(value: Program) => setProgram(value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your program" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {programs.map((prog) => (
-                      <SelectItem key={prog} value={prog}>
-                        {prog}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="yearLevel">Year Level</Label>
-                <Select value={yearLevel} onValueChange={(value: YearLevel) => setYearLevel(value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select your year level" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {yearLevels.map((year) => (
-                      <SelectItem key={year} value={year}>
-                        {year}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </CardContent>
-            <CardFooter className="flex flex-col space-y-4">
-              <Button 
-                type="submit" 
-                className="w-full bg-dccp-primary hover:bg-dccp-secondary"
-                disabled={isLoading}
-              >
-                <UserPlus className="mr-2" />
-                {isLoading ? 'Creating Account...' : 'Create Account'}
-              </Button>
-              <p className="text-sm text-center text-muted-foreground">
-                Already have an account?{' '}
-                <Link to="/login" className="text-dccp-primary hover:underline">
-                  Sign in
-                </Link>
-              </p>
-            </CardFooter>
-          </form>
-        </Card>
-        
-        <div className="text-center text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} DCCP Baguio. All rights reserved.</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default RegisterPage;
+                <Label
