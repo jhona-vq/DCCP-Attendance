@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useAuth } from '@/context/AuthContext';
 import {
   Card,
   CardContent,
@@ -23,10 +24,13 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { mockCourses, mockAttendanceRecords } from '@/data/mockData';
 import { AttendanceRecord } from '@/types';
+import { Edit } from 'lucide-react';
 
 const AttendancePage: React.FC = () => {
+  const { user } = useAuth();
   const [selectedCourse, setSelectedCourse] = useState<string>('all');
   
   const filteredRecords = selectedCourse === 'all'
@@ -37,6 +41,8 @@ const AttendancePage: React.FC = () => {
   const sortedRecords = [...filteredRecords].sort((a, b) => 
     new Date(b.date).getTime() - new Date(a.date).getTime()
   );
+
+  const canEditAttendance = user?.role === 'admin' || user?.role === 'faculty';
 
   const getStatusBadge = (status: AttendanceRecord['status']) => {
     switch (status) {
@@ -51,11 +57,20 @@ const AttendancePage: React.FC = () => {
     }
   };
 
+  const handleEditAttendance = (recordId: string) => {
+    // This is where you would implement the edit functionality
+    console.log('Editing attendance record:', recordId);
+  };
+
   return (
     <div className="space-y-6">
       <div>
         <h2 className="text-3xl font-bold tracking-tight">Attendance History</h2>
-        <p className="text-muted-foreground">View your attendance records for all courses</p>
+        <p className="text-muted-foreground">
+          {canEditAttendance 
+            ? 'View and manage attendance records' 
+            : 'View your attendance records'}
+        </p>
       </div>
 
       <Card>
@@ -96,12 +111,13 @@ const AttendancePage: React.FC = () => {
                   <TableHead>Status</TableHead>
                   <TableHead>Check-in</TableHead>
                   <TableHead className="hidden md:table-cell">Remarks</TableHead>
+                  {canEditAttendance && <TableHead className="w-[100px]">Actions</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {sortedRecords.length === 0 ? (
                   <TableRow>
-                    <TableCell colSpan={5} className="h-24 text-center">
+                    <TableCell colSpan={canEditAttendance ? 6 : 5} className="h-24 text-center">
                       No records found
                     </TableCell>
                   </TableRow>
@@ -125,12 +141,23 @@ const AttendancePage: React.FC = () => {
                           </div>
                         </TableCell>
                         <TableCell>{getStatusBadge(record.status)}</TableCell>
-                        <TableCell>
-                          {record.checkInTime || '-'}
-                        </TableCell>
+                        <TableCell>{record.checkInTime || '-'}</TableCell>
                         <TableCell className="hidden md:table-cell">
                           {record.remarks || '-'}
                         </TableCell>
+                        {canEditAttendance && (
+                          <TableCell>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => handleEditAttendance(record.id)}
+                              className="hover:bg-muted"
+                            >
+                              <Edit className="h-4 w-4" />
+                              <span className="sr-only">Edit attendance</span>
+                            </Button>
+                          </TableCell>
+                        )}
                       </TableRow>
                     );
                   })
