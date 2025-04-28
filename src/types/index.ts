@@ -1,4 +1,3 @@
-
 export interface User {
   id: string;
   name: string;
@@ -7,6 +6,9 @@ export interface User {
   studentId?: string;
   department?: string;
   avatar?: string;
+  program?: string;
+  yearLevel?: string;
+  currentSemester?: string;
 }
 
 export interface Course {

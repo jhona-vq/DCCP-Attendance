@@ -1,29 +1,39 @@
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { UserPlus } from 'lucide-react';
+import type { Program, YearLevel } from '@/types/academic';
 
 const RegisterPage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [studentId, setStudentId] = useState('');
+  const [program, setProgram] = useState<Program>('BSIT');
+  const [yearLevel, setYearLevel] = useState<YearLevel>('1st Year');
   const [isLoading, setIsLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  const programs: Program[] = ['BSIT', 'BSHM', 'BSBA', 'DHRT'];
+  const yearLevels: YearLevel[] = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
     try {
-      // For now, we'll just use the login function since we don't have a proper backend
-      // In a real app, you would call a registration API here
       const success = await login(email, password);
       if (success) {
         navigate('/');
@@ -101,6 +111,38 @@ const RegisterPage: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="program">Program</Label>
+                <Select value={program} onValueChange={(value: Program) => setProgram(value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your program" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {programs.map((prog) => (
+                      <SelectItem key={prog} value={prog}>
+                        {prog}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="yearLevel">Year Level</Label>
+                <Select value={yearLevel} onValueChange={(value: YearLevel) => setYearLevel(value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your year level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {yearLevels.map((year) => (
+                      <SelectItem key={year} value={year}>
+                        {year}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
