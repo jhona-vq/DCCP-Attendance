@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import {
@@ -28,14 +27,16 @@ import { Button } from '@/components/ui/button';
 import { mockCourses, mockAttendanceRecords } from '@/data/mockData';
 import { AttendanceRecord } from '@/types';
 import { Edit } from 'lucide-react';
+import EditAttendanceDialog from '@/components/EditAttendanceDialog';
 
 const AttendancePage: React.FC = () => {
   const { user } = useAuth();
   const [selectedCourse, setSelectedCourse] = useState<string>('all');
+  const [attendanceRecords, setAttendanceRecords] = useState(mockAttendanceRecords);
   
   const filteredRecords = selectedCourse === 'all'
-    ? mockAttendanceRecords
-    : mockAttendanceRecords.filter(record => record.courseId === selectedCourse);
+    ? attendanceRecords
+    : attendanceRecords.filter(record => record.courseId === selectedCourse);
     
   // Sort records by date (most recent first)
   const sortedRecords = [...filteredRecords].sort((a, b) => 
@@ -57,9 +58,14 @@ const AttendancePage: React.FC = () => {
     }
   };
 
-  const handleEditAttendance = (recordId: string) => {
-    // This is where you would implement the edit functionality
-    console.log('Editing attendance record:', recordId);
+  const handleUpdateAttendance = (recordId: string, newStatus: AttendanceRecord['status']) => {
+    setAttendanceRecords(current =>
+      current.map(record =>
+        record.id === recordId
+          ? { ...record, status: newStatus }
+          : record
+      )
+    );
   };
 
   return (
@@ -147,15 +153,10 @@ const AttendancePage: React.FC = () => {
                         </TableCell>
                         {canEditAttendance && (
                           <TableCell>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              onClick={() => handleEditAttendance(record.id)}
-                              className="hover:bg-muted"
-                            >
-                              <Edit className="h-4 w-4" />
-                              <span className="sr-only">Edit attendance</span>
-                            </Button>
+                            <EditAttendanceDialog
+                              record={record}
+                              onUpdate={handleUpdateAttendance}
+                            />
                           </TableCell>
                         )}
                       </TableRow>
